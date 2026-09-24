@@ -1,0 +1,135 @@
+{% extends "base.html" %}
+{% from "_icons.html" import icon %}
+{% from "_macros.html" import page_hero, cta_band %}
+
+{% block title %}Equipe — LAPEQ{% endblock %}
+{% block description %}Coordenação, técnicos, pós-graduandos, bolsistas PIBIC/PIBIT e estagiários do LAPEQ — Universidade
+Federal do Tocantins.{% endblock %}
+
+{# Fotos em static/img/equipe/<arquivo>.jpg — pessoa: (nome, função, arquivo) #}
+{% set coordenacao = [
+    ('Prof. Dr. Emerson Adriano Guarda', 'Coordenador Geral', 'emerson-guarda'),
+    ('Profa. Dra. Patricia Martins Guarda', 'Coordenadora Analítica', 'patricia-guarda'),
+] %}
+{% set tecnicos = [
+    ('Alvaro Martins', 'Químico', 'alvaro-martins'),
+    ('Fabrício de Oliveira Ramos', 'Tecnólogo em Gestão Ambiental', 'fabricio-ramos'),
+] %}
+{# (sigla, nome do programa, pessoas) #}
+{% set pos_graduacao = [
+    ('PPGCTA', 'Pós-Graduação em Ciência e Tecnologia de Alimentos', [
+        ('Alice Reis Figueiredo', 'Mestranda', 'alice-figueiredo'),
+        ('Wanderson Fernandes', 'Mestrando', 'wanderson-fernandes'),
+        ('Yuri Vinicius da Silva', 'Mestrando', 'yuri-silva'),
+    ]),
+    ('PPGAD', 'Pós-Graduação em Agroenergia Digital', [
+        ('Benildes Campos', 'Mestranda', 'benildes-campos'),
+        ('Ondina Costa', 'Mestranda', 'ondina-costa'),
+    ]),
+    ('PPGCIAMB', 'Pós-Graduação em Ciências do Ambiente', [
+        ('Mikaella Milhomens', 'Mestranda', 'mikaella-milhomens'),
+        ('Geovany Soares', 'Mestrando', 'geovany-soares'),
+    ]),
+    ('PPG Bionorte', 'Pós-Graduação em Biodiversidade e Biotecnologia da Amazônia Legal', [
+        ('Erlane Rocha', 'Doutoranda', 'erlane-rocha'),
+        ('Moisés Laurence', 'Doutorando', 'moises-laurence'),
+        ('Franscianne Batista', 'Doutoranda', 'franscianne-batista'),
+    ]),
+] %}
+{# (nome, curso, arquivo, programa, título do projeto, orientador) — projeto None oculta o bloco do projeto #}
+{% set pibic = [
+    ('Ana Clara Jorge Araújo', 'Engenharia Ambiental', 'ana-clara-jorge', 'PIBIC', 'Extração e caracterização do óleo refinado da semente da Morinda citrifolia Linn. para produção de cosmético e bioplástico', 'Prof. Dr. Emerson Adriano Guarda'),
+    ('Emanuele Aires Barbosa', 'Engenharia de Alimentos', 'emanuele-barbosa', 'PIBIT', 'Produção de bala de goma utilizando o fruto amazônico rambutan (Nephelium lappaceum)', 'Profa. Dra. Patricia Martins Guarda'),
+    ('Izadora Cardoso de Paula', 'Engenharia de Alimentos', 'izadora-cardoso', 'PIBIC', 'Determinação da vida de prateleira do extrato hidrossolúvel de amêndoa de baru sob diferentes métodos de conservação', 'Profa. Dra. Patricia Martins Guarda'),
+    ('Suelen Conceição Santos', 'Engenharia Ambiental', 'suelen-santos', 'PIBIC', 'Qualidade da água e contaminação por metais em regiões quilombolas no entorno da Chapada de Natividade – TO: avaliação dos riscos à biodiversidade e à saúde socioambiental', 'Profa. Dra. Patricia Martins Guarda'),
+    ('Vitoria Tortola Tavares', 'Engenharia de Alimentos', 'vitoria-tortola', 'PIBIC', 'Síntese e caracterização de solventes eutéticos naturais profundos para extração de compostos bioativos no fruto amazônico Lecythis pisonis Cambess', 'Profa. Dra. Patricia Martins Guarda'),
+    ('Vítor Abner Silva Nóbrega', 'Engenharia Ambiental', 'vitor-abner', 'PIBIC', 'Síntese, caracterização físico-química e aplicação de solventes eutéticos naturais profundos (NADES) no pré-tratamento de biomassa lignocelulósica', 'Prof. Dr. Emerson Adriano Guarda'),
+    ('Valéria Andrade', 'Engenharia de Alimentos', 'valeria-andrade', 'Iniciação Científica', None, None),
+] %}
+{% set estagiarios = [
+    ('Áryson Serpa', 'Engenharia de Alimentos', 'aryson-serpa'),
+    ('Lívia Gomes', 'Engenharia de Alimentos', 'livia-gomes'),
+    ('Palloma Sousa', 'Engenharia Ambiental', 'palloma-sousa'),
+    ('Karyne Silva', 'Engenharia Ambiental', 'karyne-silva'),
+    ('Sérgio Garção', 'Engenharia Ambiental', 'sergio-garcao'),
+    ('Nicolas Moura', 'Engenharia Ambiental', 'nicolas-moura'),
+] %}
+
+{% macro pessoas(lista) -%}
+<ul class="grid grid-cols-2 gap-x-6 gap-y-12 {{ 'mx-auto max-w-xl' if lista | length < 3 else 'md:grid-cols-3' }}">
+    {% for nome, funcao, foto in lista %}
+    <li class="text-center">
+        <img src="/static/img/equipe/{{ foto }}.jpg" alt="Foto de {{ nome }}" loading="lazy"
+            class="mx-auto aspect-square w-36 rounded-[28%] bg-brand-100 object-cover shadow-[0_10px_29px_rgb(68_88_144/0.2)] ring-4 ring-brand-100 sm:w-44">
+        <h3 class="mt-5 font-semibold text-ink">{{ nome }}</h3>
+        <p class="mt-1 text-xs font-semibold tracking-wider text-brand-500 uppercase">{{ funcao }}</p>
+    </li>
+    {% endfor %}
+</ul>
+{%- endmacro %}
+
+{% block content %}
+{% set tab_class = "tab h-12 px-4 text-sm font-semibold text-slate-500 checked:text-brand-700 hover:text-brand-600 sm:px-6 sm:text-base" %}
+{% set panel_class = "tab-content border-t border-t-slate-200 pt-14" %}
+
+{{ page_hero('Nossa Equipe', 'Além dos alunos de doutorado, mestrado, iniciação científica e estagiários, o LAPEQ
+possui uma equipe de analistas de comprovada experiência e qualificação.', 'lab3.jpg') }}
+
+<section class="py-24">
+    <div class="wrapper">
+        {# Abas do daisyUI (radio): funcionam sem JavaScript e com as setas do teclado #}
+        <div role="tablist" class="tabs tabs-border justify-center">
+            <input type="radio" name="equipe-tabs" role="tab" aria-label="Coordenação" class="{{ tab_class }}" checked>
+            <div role="tabpanel" class="{{ panel_class }}">{{ pessoas(coordenacao) }}</div>
+
+            <input type="radio" name="equipe-tabs" role="tab" aria-label="Técnicos" class="{{ tab_class }}">
+            <div role="tabpanel" class="{{ panel_class }}">{{ pessoas(tecnicos) }}</div>
+
+            <input type="radio" name="equipe-tabs" role="tab" aria-label="Pós-graduação" class="{{ tab_class }}">
+            <div role="tabpanel" class="{{ panel_class }}">
+                <div class="space-y-16">
+                    {% for sigla, programa, lista in pos_graduacao %}
+                    <div>
+                        <header class="mb-10 text-center">
+                            <span class="badge badge-primary badge-sm font-semibold tracking-wider">{{ sigla }}</span>
+                            <h3 class="mt-3 text-xl font-semibold text-ink">{{ programa }}</h3>
+                        </header>
+                        {{ pessoas(lista) }}
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <input type="radio" name="equipe-tabs" role="tab" aria-label="PIBIC" class="{{ tab_class }}">
+            <div role="tabpanel" class="{{ panel_class }}">
+                <p class="mx-auto mb-12 max-w-2xl text-center">Bolsistas de iniciação científica (PIBIC) e tecnológica (PIBIT) e seus projetos de pesquisa.</p>
+                <ul class="grid gap-7 lg:grid-cols-2">
+                    {% for nome, curso, foto, programa, projeto, orientador in pibic %}
+                    <li class="flex gap-6 rounded-xl border border-slate-100 bg-white p-6 shadow-[0_10px_29px_rgb(68_88_144/0.1)] max-sm:flex-col max-sm:items-center max-sm:text-center">
+                        <img src="/static/img/equipe/{{ foto }}.jpg" alt="Foto de {{ nome }}" loading="lazy"
+                            class="size-28 shrink-0 rounded-full bg-brand-100 object-cover ring-4 ring-brand-100">
+                        <div class="flex flex-col">
+                            <div class="flex flex-wrap items-center gap-2 max-sm:justify-center">
+                                <h3 class="font-semibold text-ink">{{ nome }}</h3>
+                                <span class="badge badge-primary badge-sm font-semibold">{{ programa }}</span>
+                            </div>
+                            <p class="text-xs font-semibold tracking-wider text-brand-500 uppercase">{{ curso }}</p>
+                            {% if projeto %}
+                            <p class="mt-4 text-sm font-medium text-ink">{{ projeto }}</p>
+                            <p class="mt-auto pt-4 text-xs text-slate-500">Orientação: {{ orientador }}</p>
+                            {% endif %}
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <input type="radio" name="equipe-tabs" role="tab" aria-label="Estagiários" class="{{ tab_class }}">
+            <div role="tabpanel" class="{{ panel_class }}">{{ pessoas(estagiarios) }}</div>
+        </div>
+    </div>
+</section>
+
+{{ cta_band('Quer fazer parte do LAPEQ?', 'Estudantes interessados em iniciação científica, estágio ou pós-graduação
+podem entrar em contato.', 'Fale conosco', '/contato?assunto=Interesse em participar do LAPEQ') }}
+{% endblock %}

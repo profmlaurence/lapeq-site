@@ -1,0 +1,173 @@
+{% extends "base.html" %}
+{% from "_icons.html" import icon %}
+{% from "_macros.html" import section_header, cta_band %}
+
+{% block title %}LAPEQ — Química Ambiental e de Biocombustíveis · UFT{% endblock %}
+
+{% block content %}
+{# ===== Hero ===== #}
+<section id="inicio" data-section class="relative isolate overflow-hidden rounded-b-[2.5rem] bg-brand-800 text-white">
+    <img src="/static/img/lab2.jpg" alt="" class="absolute inset-0 -z-10 size-full object-cover opacity-30">
+    <div class="absolute inset-0 -z-10 bg-linear-to-r from-brand-900/95 via-brand-800/85 to-brand-700/70"></div>
+
+    <div class="wrapper grid items-center gap-10 py-20 md:grid-cols-[1fr_auto] md:py-28">
+        <div class="max-md:text-center">
+            <span class="inline-block rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-xs font-semibold tracking-wider uppercase">Universidade Federal do Tocantins · Câmpus Palmas</span>
+            <h1 class="mt-6 text-3xl leading-tight font-semibold sm:text-4xl md:text-5xl">
+                Química aplicada ao
+                <span class="underline decoration-brand-300 decoration-3 underline-offset-8">desenvolvimento sustentável</span>
+                do Tocantins
+            </h1>
+            <p class="mt-6 max-w-xl text-lg text-brand-100 max-md:mx-auto">
+                Pesquisa, ensino e extensão em química ambiental, biocombustíveis, alimentos e materiais.
+            </p>
+            <div class="mt-9 flex flex-wrap gap-4 max-md:justify-center">
+                <a href="#sobre" class="rounded-md bg-white px-7 py-3 text-sm font-semibold text-brand-800 shadow-lg transition hover:-translate-y-0.5 hover:bg-brand-50">Conheça o laboratório</a>
+                <a href="/contato" class="rounded-md border border-white/40 px-7 py-3 text-sm font-semibold transition hover:-translate-y-0.5 hover:bg-white/10">Fale conosco</a>
+            </div>
+        </div>
+        <img src="/static/img/logo-lapeq-branco.png" alt="Logo do LAPEQ" class="w-40 drop-shadow-xl max-md:order-first max-md:mx-auto md:w-64">
+    </div>
+</section>
+
+{# ===== Sobre ===== #}
+<section id="sobre" data-section class="py-24">
+    <div class="wrapper">
+        {{ section_header('O LAPEQ', 'Laboratório de Pesquisa em Química Ambiental e de Biocombustíveis da Universidade Federal do Tocantins, com foco em produtos e processos inovadores para o desenvolvimento sustentável do estado.') }}
+
+        <div class="grid items-center gap-12 lg:grid-cols-2">
+            <div>
+                <p>
+                    Criado em 2016 para reunir os pesquisadores da área de química do Câmpus de Palmas, o LAPEQ pertence ao
+                    curso de Engenharia Ambiental e integra a <strong class="font-semibold text-ink">Unidade Embrapii de Bioindústria e Bioinsumos da UFT</strong>.
+                </p>
+                <p class="mt-4">
+                    Nossa equipe reúne profissionais de Engenharia Ambiental, Engenharia de Alimentos, Química e Gestão Ambiental,
+                    além de estudantes de iniciação científica, mestrado, doutorado e estagiários.
+                </p>
+                <ul class="mt-8 space-y-4">
+                    {% for item in [
+                        'Análises físico-químicas de água e de outras matrizes ambientais',
+                        'Serviços de análise de qualidade de água para frigoríficos, hidrelétricas, fazendas e hospitais',
+                        'Caracterização de produtos e matérias-primas com potencial agroenergético',
+                    ] %}
+                    <li class="flex gap-3">
+                        <span class="mt-0.5 grid size-6 shrink-0 place-items-center rounded-full bg-brand-100 text-brand-700">{{ icon('check', 'size-4') }}</span>
+                        <span>{{ item }}</span>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <img src="/static/img/lab1.jpg" alt="Bancadas do laboratório do LAPEQ com vidrarias e cadeiras" class="aspect-[16/10] w-full rounded-xl object-cover shadow-xl" loading="lazy">
+        </div>
+    </div>
+</section>
+
+{# ===== Áreas de Atuação ===== #}
+<section id="atuacao" data-section class="bg-brand-50 py-24">
+    <div class="wrapper">
+        {{ section_header('Áreas de Atuação', 'Desenvolvemos pesquisas em diversas áreas da química aplicada, sempre em busca de soluções com impacto ambiental e social.') }}
+
+        <div class="grid gap-7 md:grid-cols-2">
+            {% for icon_name, title, text in [
+                ('droplets', 'Química Ambiental', 'Metodologias completas de análises físico-químicas de água e de outras matrizes ambientais, apoiando o monitoramento da qualidade ambiental.'),
+                ('leaf', 'Biocombustíveis', 'Caracterização de produtos e de matérias-primas com potencial agroenergético, contribuindo para fontes de energia renováveis.'),
+                ('flask', 'Química de Alimentos', 'Análises de composição e de qualidade de alimentos e insumos, como a determinação de teores de gordura e proteína.'),
+                ('atom', 'Materiais e Química Aplicada', 'Estudo e desenvolvimento de materiais e processos inovadores voltados à bioindústria e aos bioinsumos.'),
+            ] %}
+            <article class="flex gap-6 rounded-xl bg-white p-8 shadow-[0_10px_29px_rgb(68_88_144/0.1)] transition hover:-translate-y-1 hover:shadow-[0_10px_35px_rgb(68_88_144/0.2)] max-sm:flex-col">
+                <div class="grid size-16 shrink-0 place-items-center rounded-full bg-brand-100 text-brand-700">{{ icon(icon_name, 'size-8') }}</div>
+                <div>
+                    <h3 class="text-lg font-semibold text-ink">{{ title }}</h3>
+                    <p class="mt-2 text-sm leading-relaxed">{{ text }}</p>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+{# ===== Infraestrutura ===== #}
+<section id="infraestrutura" data-section class="py-24">
+    <div class="wrapper">
+        {{ section_header('Infraestrutura', 'Contamos com equipamentos de análise química clássica e instrumentação analítica de alta complexidade.') }}
+
+        <div class="mb-10 flex flex-wrap justify-center gap-3" role="group" aria-label="Filtrar fotos">
+            {% for value, label in [('*', 'Todos'), ('laboratorio', 'Laboratório'), ('equipamentos', 'Equipamentos')] %}
+            <button type="button" data-filter="{{ value }}" {% if loop.first %}data-active{% endif %}
+                    class="cursor-pointer rounded-full bg-brand-50 px-5 py-2 text-xs font-semibold tracking-wider text-brand-700 uppercase transition hover:bg-brand-100 data-active:bg-brand-700 data-active:text-white">{{ label }}</button>
+            {% endfor %}
+        </div>
+
+        <div class="grid gap-6 sm:grid-cols-2">
+            {% for src, title, cat, cat_label in [
+                ('lab1.jpg', 'Bancadas de preparo e análise', 'laboratorio', 'Laboratório'),
+                ('lab3.jpg', 'Sala de instrumentação', 'laboratorio', 'Laboratório'),
+                ('lab4.jpg', 'Cromatógrafo a líquido', 'equipamentos', 'Equipamentos'),
+                ('lab5.jpg', 'Cromatógrafo a gás', 'equipamentos', 'Equipamentos'),
+            ] %}
+            <figure data-category="{{ cat }}" class="group/item relative overflow-hidden rounded-xl bg-brand-100 data-hidden:hidden">
+                <button type="button" data-lightbox="/static/img/{{ src }}" data-caption="{{ title }}" class="block w-full cursor-zoom-in" aria-label="Ampliar foto: {{ title }}">
+                    <img src="/static/img/{{ src }}" alt="{{ title }}" class="aspect-[4/3] w-full object-cover transition duration-500 group-hover/item:scale-105" loading="lazy">
+                    <figcaption class="absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 bg-linear-to-t from-brand-900/90 to-transparent p-5 pt-16 text-left text-white">
+                        <span>
+                            <span class="block font-semibold">{{ title }}</span>
+                            <span class="text-xs tracking-wider text-brand-200 uppercase">{{ cat_label }}</span>
+                        </span>
+                        <span class="grid size-10 shrink-0 place-items-center rounded-full bg-white/15 opacity-0 transition group-hover/item:opacity-100">{{ icon('zoom', 'size-5') }}</span>
+                    </figcaption>
+                </button>
+            </figure>
+            {% endfor %}
+        </div>
+
+        <div class="mt-16 rounded-xl border border-brand-100 p-8">
+            <h3 class="text-lg font-semibold text-ink">Principais equipamentos</h3>
+            <ul class="mt-5 flex flex-wrap gap-2.5 text-sm">
+                {% for item in [
+                    'Cromatógrafos a gás e a líquido',
+                    'Espectrômetro de plasma',
+                    'Espectrofotômetro (UV, VIS e IV)',
+                    'Termoanalisador DSC Shimadzu',
+                    'Detectores UV/VIS e de índice de refração',
+                    'Analisador automático de gordura e proteína',
+                    'Digestor/destilador Kjeldahl',
+                    'Extrator Soxhlet',
+                    'Evaporador rotativo',
+                    'Centrífuga refrigerada',
+                    'Densímetro, polarímetro e viscosímetro',
+                    'Purificador de água Milli-Q',
+                ] %}
+                <li class="rounded-md bg-brand-50 px-3.5 py-1.5 text-brand-800">{{ item }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</section>
+
+{# ===== Parceiros ===== #}
+<section id="parceiros" data-section class="bg-brand-50 py-24">
+    <div class="wrapper">
+        {{ section_header('Instituições e Parceiros', 'Instituições que fazem parte da trajetória do LAPEQ.') }}
+
+        <div class="mx-auto grid max-w-3xl overflow-hidden rounded-xl border border-slate-200 bg-white sm:grid-cols-2">
+            {% for src, name in [('logo-uft.png', 'Universidade Federal do Tocantins'), ('logo-iac.png', 'Instituto de Atenção às Cidades')] %}
+            <div class="grid h-40 place-items-center border-slate-200 p-10 not-last:max-sm:border-b sm:not-last:border-r">
+                <img src="/static/img/{{ src }}" alt="{{ name }}" class="max-h-16 w-auto opacity-70 grayscale transition hover:opacity-100 hover:grayscale-0" loading="lazy">
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+{{ cta_band('Precisa de análises químicas?', 'Realizamos análises de água, efluentes, solos e alimentos, além de laudos e projetos sob encomenda.', 'Conheça nossos serviços', '/servicos') }}
+
+{# ===== Lightbox da galeria ===== #}
+<dialog id="lightbox" class="m-auto max-h-[90vh] max-w-5xl overflow-visible bg-transparent p-0 backdrop:bg-brand-900/85">
+    <form method="dialog">
+        <button class="absolute -top-12 right-0 cursor-pointer text-white hover:text-brand-200" aria-label="Fechar">{{ icon('x', 'size-8') }}</button>
+    </form>
+    <img id="lightbox-img" src="" alt="" class="max-h-[80vh] w-auto rounded-lg">
+    <p id="lightbox-caption" class="mt-3 text-center text-sm font-medium text-white"></p>
+</dialog>
+{% endblock %}

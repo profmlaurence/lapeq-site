@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% from "_icons.html" import icon %}
+{% from "_macros.html" import section_header, page_hero %}
+
+{% block title %}Social — LAPEQ{% endblock %}
+{% block description %}Ações sociais, projetos de extensão e o LAPEQ na mídia.{% endblock %}
+
+{% block content %}
+{{ page_hero('LAPEQ na Mídia', 'Graças às suas ações sociais e projetos, o LAPEQ é referência em laboratório analítico no Tocantins e na região.', 'lab1.jpg') }}
+
+<section class="py-24">
+    <div class="wrapper">
+        {{ section_header('Ações e reportagens', 'Extensão, divulgação científica e participação do laboratório em temas de interesse da comunidade.') }}
+
+        {# (ícone, categoria, título, texto, link, fonte do link) #}
+        <div class="grid gap-7 md:grid-cols-2 lg:grid-cols-3">
+            {% for icon_name, tag, title, text, href, source in [
+                ('heart', 'Ação social', 'Combate à Covid-19', 'Fabricação e doação de álcool glicerinado e álcool gel durante a pandemia de Covid-19.', None, None),
+                ('tv', 'Reportagem', 'Cuidados com produtos químicos de limpeza', 'Orientações sobre o uso seguro de produtos químicos de limpeza, apresentadas no JA 1ª Edição.', 'https://g1.globo.com/to/tocantins/playlist/videos-ja-1-edicao-deste-sabado-31-de-maio.ghtml', 'g1 Tocantins'),
+                ('tv', 'Reportagem', 'Poluição no córrego Machado', 'Participação do LAPEQ em reportagem sobre a poluição do córrego Machado, em Palmas.', 'https://g1.globo.com/to/tocantins/edicao/2020/03/09/videos-ja-1-edicao-to-desta-segunda-feira-9-de-marco.ghtml', 'g1 Tocantins'),
+                ('youtube', 'Entrevista', 'Poluição do Ribeirão Taquarussu', 'Entrevista sobre as “manchas verdes” no Ribeirão Taquarussu e os riscos para a população.', 'https://www.youtube.com/watch?v=WvY7XUi2zfA', 'Jornal do Tocantins'),
+                ('waves', 'Evento', 'Desafio 8K de natação de Palmas', 'No evento em comemoração aos 33 anos de Palmas, o LAPEQ foi responsável pelas análises de qualidade da água no local da prova.', None, None),
+            ] %}
+            <article class="flex flex-col overflow-hidden rounded-xl border border-slate-100 bg-white shadow-[0_10px_29px_rgb(68_88_144/0.1)] transition hover:-translate-y-1 hover:shadow-[0_10px_35px_rgb(68_88_144/0.2)]">
+                <div class="grid h-36 place-items-center bg-linear-135 from-brand-700 to-brand-900 text-brand-100">
+                    {{ icon(icon_name, 'size-12') }}
+                </div>
+                <div class="flex flex-1 flex-col p-7">
+                    <span class="text-xs font-semibold tracking-wider text-brand-500 uppercase">{{ tag }}</span>
+                    <h3 class="mt-2 text-lg font-semibold text-ink">{{ title }}</h3>
+                    <p class="mt-3 flex-1 text-sm">{{ text }}</p>
+                    {% if href %}
+                    <a href="{{ href }}" target="_blank" rel="noopener" class="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-brand-600 hover:text-brand-800">
+                        Assistir em {{ source }} {{ icon('external', 'size-4') }}
+                    </a>
+                    {% endif %}
+                </div>
+            </article>
+            {% endfor %}
+
+            {# Instagram #}
+            <a href="https://www.instagram.com/{{ contato.instagram }}/" target="_blank" rel="noopener"
+               class="flex flex-col items-center justify-center gap-4 rounded-xl bg-linear-135 from-brand-500 to-brand-700 p-8 text-center text-white shadow-lg transition hover:-translate-y-1 hover:shadow-xl">
+                {{ icon('instagram', 'size-14') }}
+                <span class="text-lg font-semibold">Siga o LAPEQ no Instagram</span>
+                <span class="rounded-full bg-white/15 px-4 py-1.5 text-sm font-medium">@{{ contato.instagram }}</span>
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}

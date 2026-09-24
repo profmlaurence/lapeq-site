@@ -1,0 +1,41 @@
+{% from "_icons.html" import icon %}
+
+{# Cabeçalho centralizado das seções (título + texto de apoio) #}
+{% macro section_header(title, lead) -%}
+<header class="mx-auto mb-14 max-w-2xl text-center">
+    <h2 class="text-3xl font-semibold text-ink md:text-[2rem]">{{ title }}</h2>
+    {% if lead %}<p class="mt-4">{{ lead }}</p>{% endif %}
+</header>
+{%- endmacro %}
+
+{# Faixa de abertura das páginas internas #}
+{% macro page_hero(title, lead, image='lab2.jpg') -%}
+<section class="relative isolate overflow-hidden rounded-b-[2.5rem] bg-brand-800 text-white">
+    <img src="/static/img/{{ image }}" alt="" class="absolute inset-0 -z-10 size-full object-cover opacity-25 grayscale">
+    <div class="absolute inset-0 -z-10 bg-linear-to-r from-brand-900/95 via-brand-800/85 to-brand-700/70"></div>
+    <div class="wrapper py-16 text-center md:py-20">
+        <nav aria-label="Trilha" class="text-xs font-semibold tracking-wider text-brand-200 uppercase">
+            <a href="/" class="hover:text-white">Início</a> <span class="mx-1.5">/</span> <span class="text-white">{{ title }}</span>
+        </nav>
+        <h1 class="mt-4 text-3xl font-semibold sm:text-4xl md:text-5xl">{{ title }}</h1>
+        <p class="mx-auto mt-5 max-w-2xl text-brand-100 md:text-lg">{{ lead }}</p>
+    </div>
+</section>
+{%- endmacro %}
+
+{# Chamada para contato ao final das páginas #}
+{% macro cta_band(title, text, button='Fale conosco', href='/contato') -%}
+<section class="py-20">
+    <div class="wrapper">
+        <div class="flex flex-col items-center justify-between gap-6 rounded-2xl bg-brand-700 px-8 py-10 text-white shadow-xl md:flex-row md:px-12">
+            <div class="max-md:text-center">
+                <h2 class="text-2xl font-semibold">{{ title }}</h2>
+                <p class="mt-2 text-brand-100">{{ text }}</p>
+            </div>
+            <a href="{{ href }}" class="inline-flex shrink-0 items-center gap-2 rounded-md bg-white px-7 py-3 text-sm font-semibold text-brand-800 transition hover:-translate-y-0.5 hover:bg-brand-50">
+                {{ button }} {{ icon('arrow-right', 'size-4') }}
+            </a>
+        </div>
+    </div>
+</section>
+{%- endmacro %}

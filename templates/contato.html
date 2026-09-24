@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% from "_icons.html" import icon %}
+{% from "_macros.html" import page_hero %}
+
+{% block title %}Contato — LAPEQ{% endblock %}
+{% block description %}Entre em contato com o LAPEQ: telefone, e-mail e endereço no Câmpus Palmas da UFT.{% endblock %}
+
+{% block content %}
+{% set field = "mt-1.5 block w-full rounded-md border border-slate-200 bg-white px-4 py-2.5 text-sm text-ink transition outline-none placeholder:text-slate-400 focus:border-brand-500 focus:ring-3 focus:ring-brand-100" %}
+
+{{ page_hero('Contato', 'Entre em contato para solicitar análises, orçamentos ou propor parcerias em pesquisa.') }}
+
+{# ===== Canais ===== #}
+<section class="relative z-10 -mt-10">
+    <div class="wrapper grid gap-5 md:grid-cols-3">
+        {% for icon_name, title, value, href in [
+            ('phone', 'Telefone', contato.telefone, 'tel:' ~ contato.telefone_link),
+            ('mail', 'E-mail', contato.email, 'mailto:' ~ contato.email),
+            ('instagram', 'Instagram', '@' ~ contato.instagram, 'https://www.instagram.com/' ~ contato.instagram ~ '/'),
+        ] %}
+        <a href="{{ href }}" {% if href.startswith('http') %}target="_blank" rel="noopener"{% endif %}
+           class="flex items-center gap-4 rounded-xl bg-white p-6 shadow-[0_10px_29px_rgb(68_88_144/0.15)] transition hover:-translate-y-1">
+            <span class="grid size-12 shrink-0 place-items-center rounded-full bg-brand-100 text-brand-700">{{ icon(icon_name) }}</span>
+            <span>
+                <span class="block text-xs font-semibold tracking-wider text-brand-500 uppercase">{{ title }}</span>
+                <span class="block font-semibold text-ink">{{ value }}</span>
+            </span>
+        </a>
+        {% endfor %}
+    </div>
+</section>
+
+{# ===== Mapa + formulário ===== #}
+<section class="py-20">
+    <div class="wrapper grid gap-10 lg:grid-cols-2">
+        <div class="flex flex-col gap-5">
+            <div class="flex gap-4">
+                <span class="grid size-12 shrink-0 place-items-center rounded-full bg-brand-100 text-brand-700">{{ icon('map-pin') }}</span>
+                <div>
+                    <h2 class="font-semibold text-ink">{{ contato.local }}</h2>
+                    <p class="mt-1 text-sm">{{ contato.endereco }}</p>
+                </div>
+            </div>
+            <iframe src="https://www.google.com/maps?q={{ contato.mapa | urlencode }}&output=embed"
+                    title="Mapa: {{ contato.mapa }}" class="min-h-80 w-full flex-1 rounded-xl border-0"
+                    loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+
+        <form id="contact-form" data-to="{{ contato.email }}" class="rounded-xl border border-slate-100 p-8 shadow-sm">
+            <h2 class="text-2xl font-semibold text-ink">Envie uma mensagem</h2>
+            <p class="mt-2 text-sm">Ao enviar, seu aplicativo de e-mail será aberto com a mensagem pronta para <strong class="font-semibold text-ink">{{ contato.email }}</strong>.</p>
+
+            <div class="mt-8 grid gap-5 sm:grid-cols-2">
+                <label class="text-sm font-medium text-ink">Nome *
+                    <input name="nome" required autocomplete="name" class="{{ field }}" placeholder="Seu nome">
+                </label>
+                <label class="text-sm font-medium text-ink">E-mail *
+                    <input name="email" type="email" required autocomplete="email" class="{{ field }}" placeholder="voce@exemplo.com">
+                </label>
+                <label class="text-sm font-medium text-ink sm:col-span-2">Assunto
+                    <input name="assunto" class="{{ field }}" placeholder="Ex.: análise de água">
+                </label>
+                <label class="text-sm font-medium text-ink sm:col-span-2">Mensagem *
+                    <textarea name="mensagem" rows="6" required class="{{ field }} resize-y" placeholder="Descreva sua necessidade"></textarea>
+                </label>
+            </div>
+
+            <button type="submit" class="mt-6 inline-flex cursor-pointer items-center gap-2 rounded-md bg-brand-700 px-7 py-3 text-sm font-semibold text-white shadow-sm transition hover:-translate-y-0.5 hover:bg-brand-800">
+                {{ icon('send', 'size-4') }} Enviar mensagem
+            </button>
+        </form>
+    </div>
+</section>
+{% endblock %}
