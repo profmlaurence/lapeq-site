@@ -77,3 +77,62 @@ if (contactForm) {
         location.href = `mailto:${contactForm.dataset.to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     });
 }
+
+// Ficha de Solicitação de Análises (ainda não é salva: gera a ficha para impressão/PDF)
+const solicitacaoForm = document.getElementById('solicitacao-form');
+if (solicitacaoForm) {
+    const amostras = document.getElementById('amostras');
+    const template = document.getElementById('amostra-template');
+
+    function renumerar() {
+        amostras.querySelectorAll('[data-index]').forEach((td, i) => { td.textContent = i + 1; });
+        // Mantém ao menos uma amostra: o botão de remover some quando só há uma linha
+        amostras.querySelectorAll('[data-remove]').forEach((b) => { b.hidden = amostras.rows.length === 1; });
+    }
+    function addAmostra() {
+        amostras.append(template.content.cloneNode(true));
+        renumerar();
+    }
+    document.getElementById('add-amostra').addEventListener('click', () => {
+        addAmostra();
+        amostras.lastElementChild.querySelector('input').focus();
+    });
+    amostras.addEventListener('click', (e) => {
+        const remove = e.target.closest('[data-remove]');
+        if (!remove) return;
+        remove.closest('tr').remove();
+        renumerar();
+    });
+    addAmostra();
+
+    // Pelo menos um ensaio precisa ser marcado
+    const ensaios = solicitacaoForm.querySelectorAll('input[name="ensaio"]');
+    function validarEnsaios() {
+        const algum = [...ensaios].some((c) => c.checked);
+        ensaios[0].setCustomValidity(algum ? '' : 'Selecione pelo menos um ensaio.');
+    }
+    ensaios.forEach((c) => c.addEventListener('change', validarEnsaios));
+    validarEnsaios();
+
+    solicitacaoForm.addEventListener('reset', () => {
+        setTimeout(() => {
+            amostras.replaceChildren();
+            addAmostra();
+            validarEnsaios();
+        });
+    });
+
+    const modal = document.getElementById('solicitacao-modal');
+    solicitacaoForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        // Preenche os nomes sob as linhas de assinatura da versão impressa
+        document.querySelectorAll('[data-assinatura]').forEach((el) => {
+            el.textContent = solicitacaoForm.elements[el.dataset.assinatura].value;
+        });
+        modal.showModal();
+    });
+    document.getElementById('print-solicitacao').addEventListener('click', () => {
+        modal.close();
+        print();
+    });
+}

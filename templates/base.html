@@ -7,6 +7,7 @@
 ] %}
 {% set page_items = [
     ('/servicos', 'servicos', 'Serviços'),
+    ('/central-de-analises', 'central', 'Central de Análises'),
     ('/equipe', 'equipe', 'Equipe'),
     ('/social', 'social', 'Social'),
 ] %}
@@ -25,7 +26,7 @@
     <link rel="stylesheet" href="/static/css/style.css">
 </head>
 <body class="bg-white font-sans leading-relaxed text-slate-600 antialiased">
-    <header id="site-header" class="group fixed inset-x-0 top-0 z-50 border-b border-transparent bg-white transition-shadow data-scrolled:border-slate-100 data-scrolled:shadow-[0_2px_15px_rgb(0_0_0/0.08)]">
+    <header id="site-header" class="group print:hidden fixed inset-x-0 top-0 z-50 border-b border-transparent bg-white transition-shadow data-scrolled:border-slate-100 data-scrolled:shadow-[0_2px_15px_rgb(0_0_0/0.08)]">
         <div class="wrapper flex h-20 items-center justify-between gap-6">
             <a href="/" class="flex items-center gap-3">
                 <img src="/static/img/logo-lapeq.jpg" alt="" class="size-12">
@@ -54,11 +55,11 @@
         </div>
     </header>
 
-    <main id="topo" class="pt-20">
+    <main id="topo" class="pt-20 print:pt-0">
         {% block content %}{% endblock %}
     </main>
 
-    <footer class="bg-brand-900 text-brand-200">
+    <footer class="bg-brand-900 text-brand-200 print:hidden">
         <div class="wrapper grid gap-10 py-14 md:grid-cols-[1.4fr_1fr_1.4fr]">
             <div>
                 <img src="/static/img/logo-lapeq-branco.png" alt="LAPEQ" class="mb-5 w-24">
@@ -87,7 +88,7 @@
     </footer>
 
     <a href="#topo" id="back-to-top" aria-label="Voltar ao topo"
-       class="invisible fixed right-5 bottom-5 z-40 grid size-11 translate-y-3 place-items-center rounded-full bg-brand-700 text-white opacity-0 shadow-lg transition hover:bg-brand-800 data-visible:visible data-visible:translate-y-0 data-visible:opacity-100">
+       class="invisible print:hidden fixed right-5 bottom-5 z-40 grid size-11 translate-y-3 place-items-center rounded-full bg-brand-700 text-white opacity-0 shadow-lg transition hover:bg-brand-800 data-visible:visible data-visible:translate-y-0 data-visible:opacity-100">
         {{ icon('chevron-up', 'size-5') }}
     </a>
 

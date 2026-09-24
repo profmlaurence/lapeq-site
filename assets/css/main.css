@@ -25,8 +25,16 @@
     --color-accent-content: #22263b;
     --color-neutral: #343748;
     --color-neutral-content: #ffffff;
+    --color-info: #4b5585;
+    --color-info-content: #ffffff;
+    --color-error: #c2410c;
+    --color-error-content: #ffffff;
+    --radius-selector: 0.25rem;
     --radius-field: 0.375rem;
     --radius-box: 0.75rem;
+    --size-selector: 0.25rem;
+    --size-field: 0.25rem;
+    --border: 1px;
     --depth: 0;
     --noise: 0;
 }
@@ -60,5 +68,16 @@
     html {
         scroll-behavior: smooth;
         scroll-padding-top: 5rem;
+    }
+
+    /* Impressão (ex.: ficha de solicitação): tudo é medido em rem, então reduzir a fonte base compacta a página */
+    @media print {
+        @page {
+            size: A4;
+            margin: 12mm;
+        }
+        html {
+            font-size: 11px;
+        }
     }
 }

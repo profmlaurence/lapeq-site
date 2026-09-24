@@ -1,0 +1,146 @@
+{% extends "base.html" %}
+{% from "_icons.html" import icon %}
+{% from "_macros.html" import section_header, page_hero, cta_band %}
+
+{% block title %}Central de Análises — LAPEQ{% endblock %}
+{% block description %}Central de Análises do LAPEQ/UFT: equipamentos multiusuários de cromatografia e espectroscopia,
+normas de utilização e ficha de solicitação de análises.{% endblock %}
+
+{% set normas_pdf = '/static/docs/normas-central-de-analises-2023.pdf' %}
+{% set ficha_docx = '/static/docs/rsq-011-ficha-de-solicitacao-de-analises.docx' %}
+
+{% block content %}
+{{ page_hero('Central de Análises', 'Equipamentos multiusuários para apoiar as pesquisas e o ensino de graduação e
+pós-graduação da UFT e de outras instituições.', 'lab5.jpg') }}
+
+{# ===== Técnicas ===== #}
+<section class="py-24">
+    <div class="wrapper">
+        {{ section_header('Técnicas disponíveis', 'Solicite a utilização dos equipamentos da Central de Análises
+        preenchendo a ficha de solicitação e agende seu horário.') }}
+
+        <div class="grid gap-7 sm:grid-cols-2 lg:grid-cols-3">
+            {% for sigla, title, text in [
+            ('CG', 'Cromatografia Gasosa', 'Separação e análise de compostos que podem ser vaporizados sem decomposição:
+            misturas termicamente estáveis com pontos de ebulição de até 300 °C.'),
+            ('CLAE', 'Cromatografia Líquida', 'Separação e identificação de compostos orgânicos em diferentes tipos de
+            matrizes, com inúmeras aplicações em química e biologia.'),
+            ('CI', 'Cromatografia Iônica', 'Determinação de ânions e cátions inorgânicos e metais de transição em águas,
+            efluentes, amostras da indústria petroquímica e outras.'),
+            ('ICP', 'Espectroscopia de Emissão Atômica', 'Análise quantitativa simultânea de vários elementos em nível
+            traço em água, solo, sedimento, alimentos e amostras biológicas.'),
+            ('IV', 'Espectroscopia no Infravermelho', 'Técnica versátil para identificação de grupos funcionais e
+            caracterização qualitativa e quantitativa de moléculas e materiais.'),
+            ('UV-Vis', 'Espectroscopia UV-Vis', 'Espectroscopia de absorção na região do ultravioleta e do visível,
+            usada para identificar compostos e investigar a composição de amostras.'),
+            ] %}
+            <article
+                class="rounded-xl border border-slate-100 bg-white p-8 shadow-[0_10px_29px_rgb(68_88_144/0.1)] transition hover:-translate-y-1 hover:shadow-[0_10px_35px_rgb(68_88_144/0.2)]">
+                <span class="badge badge-primary font-semibold tracking-wider">{{ sigla }}</span>
+                <h3 class="mt-4 text-lg font-semibold text-ink">{{ title }}</h3>
+                <p class="mt-3 text-sm">{{ text }}</p>
+            </article>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+{# ===== Como solicitar ===== #}
+<section class="bg-brand-50 py-24">
+    <div class="wrapper">
+        {{ section_header('Como solicitar uma análise', 'A utilização da infraestrutura é feita mediante solicitação
+        aprovada pela coordenação da Central de Análises.') }}
+
+        <ol class="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+            {% for title, text in [
+            ('Preencha a ficha', 'Preencha a Ficha de Solicitação de Análises com os dados do solicitante, das amostras
+            e das condições de análise.'),
+            ('Ciência do orientador', 'Solicitações de alunos de graduação e pós-graduação precisam do ciente e da
+            autorização do professor responsável.'),
+            ('Envie ao LAPEQ', 'Envie a ficha por e-mail para ' ~ contato.emails_solicitacao | join(', ') ~ ' ou
+            entregue presencialmente.'),
+            ('Aprovação e agenda', 'A coordenação avalia a viabilidade da solicitação e as análises seguem a sequência
+            de agendamento aprovada.'),
+            ] %}
+            <li class="relative rounded-xl bg-white p-7 shadow-sm">
+                <span class="grid size-10 place-items-center rounded-full bg-brand-700 font-semibold text-white">{{
+                    loop.index }}</span>
+                <h3 class="mt-5 font-semibold text-ink">{{ title }}</h3>
+                <p class="mt-2 text-sm break-words">{{ text }}</p>
+            </li>
+            {% endfor %}
+        </ol>
+
+        <div class="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
+            <a href="/central-de-analises/solicitacao"
+                class="inline-flex items-center gap-2 rounded-md bg-brand-700 px-7 py-3 text-sm font-semibold text-white shadow-sm transition hover:-translate-y-0.5 hover:bg-brand-800">
+                {{ icon('file', 'size-4') }} Preencher solicitação online
+            </a>
+            <a href="{{ ficha_docx }}" download
+                class="inline-flex items-center gap-2 rounded-md border border-brand-300 bg-white px-7 py-3 text-sm font-semibold text-brand-700 transition hover:-translate-y-0.5 hover:bg-brand-100">
+                {{ icon('download', 'size-4') }} Baixar ficha (Word)
+            </a>
+        </div>
+    </div>
+</section>
+
+{# ===== Normas ===== #}
+<section id="normas" class="py-24">
+    <div class="wrapper">
+        {{ section_header('Normas de utilização', 'Principais pontos das Normas Internas da Central de Análises do
+        LAPEQ/CUP. Consulte o documento completo abaixo.') }}
+
+        <div class="grid gap-6 md:grid-cols-3">
+            {% for icon_name, title, text in [
+            ('clock', 'Horários', 'As sessões de análise ocorrem das 09:00 às 12:00 e das 14:00 às 17:00, iniciando e
+            encerrando no horário de cada turno.'),
+            ('users', 'Operação dos equipamentos', 'Só operam os equipamentos o técnico responsável ou pessoas treinadas
+            por ele, com autorização do comitê gestor. Danos por má utilização são de responsabilidade do usuário.'),
+            ('package', 'Contrapartida e insumos', 'É cobrado um valor por hora ou por amostra, destinado à manutenção
+            dos equipamentos. Os usuários fornecem os insumos específicos (solventes, frascos, filtros, padrões
+            etc.).'),
+            ] %}
+            <article class="flex gap-5 rounded-xl border border-slate-100 p-6 shadow-sm">
+                <span class="grid size-12 shrink-0 place-items-center rounded-full bg-brand-100 text-brand-700">{{
+                    icon(icon_name) }}</span>
+                <div>
+                    <h3 class="font-semibold text-ink">{{ title }}</h3>
+                    <p class="mt-1 text-sm">{{ text }}</p>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+        <p class="mt-6 text-center text-sm">
+            Os valores atualizados devem ser consultados pelos canais de contato do laboratório. A contrapartida também
+            pode ser
+            acordada com o comitê gestor na forma de doação de consumíveis, reagentes, peças ou manutenção.
+        </p>
+
+        <div class="mt-12 overflow-hidden rounded-xl border border-slate-200 shadow-sm">
+            <div
+                class="flex flex-wrap items-center justify-between gap-4 border-b border-slate-200 bg-brand-50 px-6 py-4">
+                <div class="flex items-center gap-3">
+                    <span class="text-brand-700">{{ icon('file') }}</span>
+                    <div>
+                        <h3 class="font-semibold text-ink">Normas Internas da Central de Análises do LAPEQ/CUP</h3>
+                        <p class="text-xs text-slate-500">PDF · 3 páginas · 2023</p>
+                    </div>
+                </div>
+                <a href="{{ normas_pdf }}" download
+                    class="inline-flex items-center gap-2 rounded-md bg-brand-700 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-brand-800">
+                    {{ icon('download', 'size-4') }} Baixar PDF
+                </a>
+            </div>
+            <!-- <object data="{{ normas_pdf }}#view=FitH" type="application/pdf" class="block h-[80vh] w-full bg-slate-100">
+                <div class="p-10 text-center">
+                    <p>Não foi possível exibir o PDF neste navegador.</p>
+                    <a href="{{ normas_pdf }}" class="mt-3 inline-block font-semibold text-brand-600 hover:underline">Abrir as normas em PDF</a>
+                </div>
+            </object> -->
+        </div>
+    </div>
+</section>
+
+{{ cta_band('Pronto para solicitar?', 'Preencha a ficha de solicitação online e envie ao LAPEQ.', 'Solicitar análise',
+'/central-de-analises/solicitacao') }}
+{% endblock %}

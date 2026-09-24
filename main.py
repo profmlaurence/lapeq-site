@@ -21,6 +21,8 @@ CONTATO = {
     "telefone_link": "+556332294516",
     "instagram": "lapeq_uft",
     "pagina_uft": "https://www.uft.edu.br/campus/palmas/laboratorios/lapeq",
+    # E-mails que recebem as fichas de solicitação da Central de Análises
+    "emails_solicitacao": ["lapeq@uft.edu.br", "lapequft1@gmail.com", "lapequft2@gmail.com"],
 }
 
 
@@ -40,6 +42,23 @@ def page_inicio(request: Request):
 @app.get("/servicos", response_class=HTMLResponse)
 def page_servicos(request: Request):
     return render(request, "servicos.html", "servicos")
+
+
+@app.get("/central-de-analises", response_class=HTMLResponse)
+def page_central(request: Request):
+    return render(request, "central.html", "central")
+
+
+@app.get("/central-de-analises/solicitacao", response_class=HTMLResponse)
+def page_solicitacao(request: Request):
+    # O formulário ainda não é salvo: o envio só gera a ficha para impressão/PDF
+    return render(request, "solicitacao.html", "central")
+
+
+@app.get("/services-2")
+def page_central_antiga():
+    # Endereço da Central de Análises no site anterior (Wix)
+    return RedirectResponse(url="/central-de-analises", status_code=301)
 
 
 @app.get("/equipe", response_class=HTMLResponse)
